@@ -1,6 +1,4 @@
-export const TAGS = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'] as const;
-
-export type Tag = (typeof TAGS)[number];
+export type Tag = 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
 
 export interface Note {
   id: string;
