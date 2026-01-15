@@ -1,0 +1,34 @@
+import { Metadata } from "next";
+import css from "./CreateNote.module.css";
+
+export const metadata: Metadata = {
+  title: 'Create note | NoteHub',
+  description:
+    'The page where you are creating notes.',
+    metadataBase: new URL('/'), 
+
+  openGraph: {
+    title: 'Create note | NoteHub',
+    description:
+      'The page where you are creating notes.',
+    url: '/notes/action/create',
+    
+    images: [
+      {
+        url: 'https://cdn-icons-png.flaticon.com/512/11021/11021969.png',
+        width: 1200,
+        height: 630,
+        alt: 'Create note',
+      },
+    ],},};
+
+export function CreateNote() {
+  return (
+  <main className={css.main}>
+  <div className={css.container}>
+    <h1 className={css.title}>Create note</h1>
+	   
+  </div>
+</main>
+)
+}
