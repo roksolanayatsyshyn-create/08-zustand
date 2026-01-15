@@ -10,19 +10,23 @@ interface NoteFormProps {
 }
 
 export function NoteForm({ onCancel }: NoteFormProps) {
-  const [isPending] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const { draft, setDraft, clearDraft } = useNoteStore();
 
-  async function formAction() {
-  const { title, content, tag } = useNoteStore.getState().draft;
+  async function formAction(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-  await createNote({ title, content, tag });
-  clearDraft();
-}
+    startTransition(async () => {
+      const { title, content, tag } = useNoteStore.getState().draft;
+      await createNote({ title, content, tag });
+      clearDraft();
+      onCancel(); 
+    });
+  }
 
   return (
     
-        <form action={formAction} className={css.form}>
+        <form onSubmit={formAction} className={css.form}>
           <div className={css.formGroup}>
             <label htmlFor="title">Title</label>
             <input id="title" type="text" name="title" className={css.input}
@@ -59,8 +63,8 @@ export function NoteForm({ onCancel }: NoteFormProps) {
             <button
               type="button"
               className={css.cancelButton}
-              onClick={()=>{
-                onCancel(); clearDraft()}}
+              onClick={
+                onCancel}
             >
               Cancel
             </button>

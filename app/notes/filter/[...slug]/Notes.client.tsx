@@ -1,15 +1,12 @@
 'use client';
 
-import  Link  from "next";
+import  Link  from "next/link";
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import { NoteList } from '@/components/NoteList/NoteList';
 import { SearchBox } from '@/components/SearchBox/SearchBox';
 import { Pagination } from '@/components/Pagination/Pagination';
-import { Modal } from '@/components/Modal/Modal';
-import { NoteForm } from '@/components/NoteForm/NoteForm';
-import { useRouter } from 'next/navigation';
 import { fetchNotes } from '@/lib/api';
 import css from './NotesPage.module.css';
 
@@ -24,13 +21,10 @@ interface NotesClientProps {
 export default function NotesClient({ tag
   , page, search 
 }: NotesClientProps) {
-  const router = useRouter();
-  
-
   const [searchValue, setSearchValue] = useState(search);
   const [currentPage, setCurrentPage] = useState(page);
   const [debouncedSearch] = useDebounce(searchValue, 500);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const { data } = useQuery({
   queryKey: ['notes', { tag, search: debouncedSearch, page: currentPage }],
@@ -45,12 +39,20 @@ export default function NotesClient({ tag
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
     setCurrentPage(1);
-    router.push(`/notes/filter/${tag}?search=${value}&page=1`);
+    window.history.replaceState(
+      null,
+      "",
+      `/notes/filter/${tag}?search=${value}&page=1`
+    );;
   };
 
   const handlePageChange = (p: number) => {
     setCurrentPage(p);
-    router.push(`/notes/filter/${tag}?search=${debouncedSearch}&page=${p}`);
+    window.history.replaceState(
+      null,
+      "",
+      `/notes/filter/${tag}?search=${debouncedSearch}&page=${p}`
+    );
   };
 
   return (
@@ -66,18 +68,20 @@ export default function NotesClient({ tag
           />
         )}
 
-        <Link href ="/notes/action/create" className={css.button}>Create note +</Link>
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
+        </Link>
+          
         
       </header>
 
-      {notes.length > 0 && <NoteList notes={notes} />}
-
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onCancel={() => setIsModalOpen(false)} />
-        </Modal>
+      {notes.length > 0 ? (
+        <NoteList notes={notes} />
+      ) : (
+        <p>No notes found.</p>
       )}
+
+      
     </div>
   );
 }
