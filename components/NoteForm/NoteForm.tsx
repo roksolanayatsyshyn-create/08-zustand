@@ -1,3 +1,4 @@
+"use client"
 import { useTransition } from 'react';
 import { createNote } from '@/lib/api';
 import type { Tag } from '@/types/note';
