@@ -75,11 +75,7 @@ export default function NotesClient({ tag
         
       </header>
 
-      {notes.length > 0 ? (
-        <NoteList notes={notes} />
-      ) : (
-        <p>No notes found.</p>
-      )}
+       {notes.length > 0 && <NoteList notes={notes} />}
 
       
     </div>

@@ -12,7 +12,7 @@ const roboto = Roboto({
   display:'swap',
   subsets: ['latin'],
 });
-export const metadataBase = new URL('http://localhost:3000');
+export const metadataBase = new URL('https://08-zustand-one-ochre.vercel.app/');
 export const metadata: Metadata = {
   title: {
     default: 'NoteHub App',
