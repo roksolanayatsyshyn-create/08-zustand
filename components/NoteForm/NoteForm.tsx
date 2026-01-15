@@ -1,33 +1,38 @@
 "use client"
 import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { createNote } from '@/lib/api';
 import type { Tag } from '@/types/note';
 import {useNoteStore} from "@/lib/store/noteStore"
 import css from './NoteForm.module.css';
 
 
-interface NoteFormProps {
-  onCancel: () => void;
-}
 
-export function NoteForm({ onCancel }: NoteFormProps) {
+export function NoteForm() {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { draft, setDraft, clearDraft } = useNoteStore();
 
-  async function formAction(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function formAction() {
+   const { title, content, tag } = useNoteStore.getState().draft; 
 
     startTransition(async () => {
-      const { title, content, tag } = useNoteStore.getState().draft;
+    
       await createNote({ title, content, tag });
       clearDraft();
-      onCancel(); 
+      router.back(); 
     });
+  }
+  function handleCancel() {
+    router.back();
   }
 
   return (
     
-        <form onSubmit={formAction} className={css.form}>
+        <form onSubmit={(e) => {
+        e.preventDefault();
+        formAction();
+      }} className={css.form}>
           <div className={css.formGroup}>
             <label htmlFor="title">Title</label>
             <input id="title" type="text" name="title" className={css.input}
@@ -65,7 +70,7 @@ export function NoteForm({ onCancel }: NoteFormProps) {
               type="button"
               className={css.cancelButton}
               onClick={
-                onCancel}
+                handleCancel}
             >
               Cancel
             </button>
