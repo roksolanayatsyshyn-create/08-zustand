@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Create note | NoteHub',
   description:
     'The page where you are creating notes.',
-    metadataBase: new URL('/'), 
+    
 
   openGraph: {
     title: 'Create note | NoteHub',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       },
     ],},};
 
-export function CreateNote() {
+export default function CreateNote() {
   return (
   <main className={css.main}>
   <div className={css.container}>
