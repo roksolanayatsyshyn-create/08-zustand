@@ -6,7 +6,7 @@ import { Modal } from '@/components/Modal/Modal';
 import css from './NotePreview.module.css';
 
 interface NotePreviewProps {
-  id:string;
+  id: string;
 }
 
 export default function NotePreview({ id }: NotePreviewProps) {
@@ -19,7 +19,7 @@ export default function NotePreview({ id }: NotePreviewProps) {
   } = useQuery({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
-    refetchOnMount:false,
+    refetchOnMount: false,
   });
 
   const closeModal = () => {
@@ -32,7 +32,7 @@ export default function NotePreview({ id }: NotePreviewProps) {
       </Modal>
     );
   }
-if (isError || !note) {
+  if (isError || !note) {
     return (
       <Modal onClose={closeModal}>
         <p>Failed to load note</p>
@@ -41,18 +41,18 @@ if (isError || !note) {
   }
   return (
     <Modal onClose={closeModal}>
-    <div className={css.container}>
-      <div className={css.item}>
-        <button onClick={closeModal} className={css.backBtn}>
-          Close
-        </button>
-        <div className={css.header}>
-          <h2>{note.title}</h2>
+      <div className={css.container}>
+        <div className={css.item}>
+          <button onClick={closeModal} className={css.backBtn}>
+            Close
+          </button>
+          <div className={css.header}>
+            <h2>{note.title}</h2>
+          </div>
+          <p className={css.content}>{note.content}</p>
+          <p className={css.date}>{note.createdAt}</p>
         </div>
-        <p className={css.content}>{note.content}</p>
-        <p className={css.date}>{note.createdAt}</p>
       </div>
-    </div>
     </Modal>
   );
 }

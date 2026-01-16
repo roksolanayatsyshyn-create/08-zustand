@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type {  Note, NoteFormValues } from '@/types/note.ts';
+import type { Note, NoteFormValues } from '@/types/note.ts';
 
 export interface FetchNotesResponse {
   notes: Note[];
@@ -13,28 +13,30 @@ const axiosInstance = axios.create({
     : {},
 });
 
-
 export async function fetchNotes(
   search = '',
   page = 1,
   perPage = 12,
   tag: string
 ): Promise<FetchNotesResponse> {
-  const params: { search: string; page: number; perPage: number; tag?: string } = {
+  const params: {
+    search: string;
+    page: number;
+    perPage: number;
+    tag?: string;
+  } = {
     search,
     page,
     perPage,
-    
   };
   if (tag && tag !== 'all') {
-    params.tag = tag; 
+    params.tag = tag;
   } else if (tag === 'all') {
-    params.tag = undefined; 
+    params.tag = undefined;
   }
   const res = await axiosInstance.get<FetchNotesResponse>('/', { params });
   return res.data;
 }
- 
 
 export async function createNote(newNote: NoteFormValues) {
   const res = await axiosInstance.post<Note>('/', newNote);

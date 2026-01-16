@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description:
       'Sorry, the page you are looking for does not exist. Please check the URL or return to the main page.',
     url: '/not-found',
-    
+
     images: [
       {
         url: 'https://hostiq.ua/wiki/wp-content/uploads/2021/05/08-error-404-not-found-1-2048x1040.png',
@@ -20,10 +20,11 @@ export const metadata: Metadata = {
         height: 630,
         alt: '404 — Page Not Found',
       },
-    ],},};
+    ],
+  },
+};
 
-  
- const NotFound = () => {
+const NotFound = () => {
   return (
     <>
       <h1 className={css.title}>404 - Page not found</h1>

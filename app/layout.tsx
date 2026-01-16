@@ -7,9 +7,9 @@ import Providers from '@/components/TanStackProvider/TanStackProviders';
 import './globals.css';
 
 const roboto = Roboto({
-  weight:['400', '500', '700'],
+  weight: ['400', '500', '700'],
   variable: '--font-roboto-sans',
-  display:'swap',
+  display: 'swap',
   subsets: ['latin'],
 });
 export const metadataBase = new URL('https://08-zustand-one-ochre.vercel.app/');
@@ -18,20 +18,21 @@ export const metadata: Metadata = {
     default: 'NoteHub App',
     template: ' NoteHub',
   },
-  description:
-   'Create, organize and filter your notes easily with NoteHub.',
-openGraph: {
+  description: 'Create, organize and filter your notes easily with NoteHub.',
+  openGraph: {
     title: 'NoteHub App',
-    description:
-      'Create, organize and filter your notes easily with NoteHub.',
-    url: '/',
+    description: 'Create, organize and filter your notes easily with NoteHub.',
+    url: 'https://08-zustand-one-ochre.vercel.app/',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
         width: 1200,
         height: 630,
         alt: 'NoteHub  App',
-      }],}}
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
@@ -50,8 +51,6 @@ export default function RootLayout({
           {modal}
           <Footer />
         </Providers>
-        
-  
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import  Link  from "next/link";
+import Link from 'next/link';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
@@ -19,21 +19,17 @@ interface NotesClientProps {
   search: string;
 }
 
-export default function NotesClient({ tag
-  , page, search 
-}: NotesClientProps) {
+export default function NotesClient({ tag, page, search }: NotesClientProps) {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState(search);
   const [currentPage, setCurrentPage] = useState(page);
   const [debouncedSearch] = useDebounce(searchValue, 500);
 
-
   const { data } = useQuery({
-  queryKey: ['notes', { tag, search: debouncedSearch, page: currentPage }],
-  queryFn: () => fetchNotes(debouncedSearch, currentPage, PER_PAGE, tag),
-  staleTime: 1000 * 60,
-});
-
+    queryKey: ['notes', { tag, search: debouncedSearch, page: currentPage }],
+    queryFn: () => fetchNotes(debouncedSearch, currentPage, PER_PAGE, tag),
+    staleTime: 1000 * 60,
+  });
 
   const notes = data?.notes ?? [];
   const totalPages = data?.totalPages ?? 0;
@@ -65,14 +61,9 @@ export default function NotesClient({ tag
         <Link href="/notes/action/create" className={css.button}>
           Create note +
         </Link>
-          
-        
       </header>
 
-       {notes.length > 0 && <NoteList notes={notes} />}
-
-      
+      {notes.length > 0 && <NoteList notes={notes} />}
     </div>
   );
 }
-

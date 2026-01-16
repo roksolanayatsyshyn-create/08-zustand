@@ -23,9 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${note.title} | NoteHub`;
 
   const description =
-    note.content.length > 70
-      ? note.content.slice(0,70 ) + '…'
-      : note.content;
+    note.content.length > 70 ? note.content.slice(0, 70) + '…' : note.content;
 
   const url = `/notes/${id}`;
 
@@ -45,7 +43,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           height: 630,
           alt: note.title,
         },
-      ],},};
+      ],
+    },
+  };
 }
 
 export const dynamic = 'force-dynamic';

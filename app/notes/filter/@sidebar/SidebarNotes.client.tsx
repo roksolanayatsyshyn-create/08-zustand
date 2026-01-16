@@ -8,17 +8,15 @@ import css from './SidebarNotes.module.css';
 export default function SidebarNotesClient() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['sidebar-notes'],
-    queryFn: () => fetchNotes('', 1, 12, "all"),
-})
+    queryFn: () => fetchNotes('', 1, 12, 'all'),
+  });
   if (isLoading) return <p>Loading tags...</p>;
   if (isError || !data) return <p>Failed to load tags</p>;
 
   const notes: Note[] = data.notes ?? [];
 
-  
-  const tags: Tag[] = Array.from(new Set(notes.map(note => note.tag)));
-  
-  
+  const tags: Tag[] = Array.from(new Set(notes.map((note) => note.tag)));
+
   return (
     <ul className={css.menuList}>
       {/* список тегів */}
