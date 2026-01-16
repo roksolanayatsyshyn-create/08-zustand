@@ -7,6 +7,7 @@ import { useDebounce } from 'use-debounce';
 import { NoteList } from '@/components/NoteList/NoteList';
 import { SearchBox } from '@/components/SearchBox/SearchBox';
 import { Pagination } from '@/components/Pagination/Pagination';
+import { useRouter } from 'next/navigation';
 import { fetchNotes } from '@/lib/api';
 import css from './NotesPage.module.css';
 
@@ -21,6 +22,7 @@ interface NotesClientProps {
 export default function NotesClient({ tag
   , page, search 
 }: NotesClientProps) {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState(search);
   const [currentPage, setCurrentPage] = useState(page);
   const [debouncedSearch] = useDebounce(searchValue, 500);
@@ -39,20 +41,12 @@ export default function NotesClient({ tag
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
     setCurrentPage(1);
-    window.history.replaceState(
-      null,
-      "",
-      `/notes/filter/${tag}?search=${value}&page=1`
-    );;
+    router.push(`/notes/filter/${tag}?search=${value}&page=1`);
   };
 
   const handlePageChange = (p: number) => {
     setCurrentPage(p);
-    window.history.replaceState(
-      null,
-      "",
-      `/notes/filter/${tag}?search=${debouncedSearch}&page=${p}`
-    );
+    router.push(`/notes/filter/${tag}?search=${debouncedSearch}&page=${p}`);
   };
 
   return (
