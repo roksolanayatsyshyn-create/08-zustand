@@ -24,7 +24,7 @@ openGraph: {
     title: 'NoteHub App',
     description:
       'Create, organize and filter your notes easily with NoteHub.',
-    url: '/',
+    url: 'https://08-zustand-one-ochre.vercel.app/',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
